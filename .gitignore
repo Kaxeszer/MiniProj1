@@ -1,0 +1,20 @@
+
+# JetBrains WebStorm
+.idea/
+*.iml
+
+# Dependências e ficheiros gerados
+node_modules/
+dist/
+
+# Ficheiros do sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs e ficheiros temporários
+*.log
+
+# Configurações privadas
+.env
+.env.*
+!.env.example
