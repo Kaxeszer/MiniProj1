@@ -1,7 +1,9 @@
+const { createApp } = Vue;
 
-/*
- * MiniProj1 — Curriculum Vitae SPA
- * Lógica da aplicação
- */
-
-// A integração com Vue.js será realizada numa fase posterior.
+createApp({
+    data() {
+        return {
+            vistaAtiva: "quem-sou-eu"
+        };
+    }
+}).mount("#app");

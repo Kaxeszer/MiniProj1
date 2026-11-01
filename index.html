@@ -8,6 +8,8 @@
     <title>MiniProj1 | Luís Pereira</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js" defer></script>
     <script src="js/app.js" defer></script>
 </head>
 
@@ -19,14 +21,34 @@
         <p>Curriculum Vitae</p>
 
         <nav aria-label="Navegação principal">
-            <button type="button">Quem Sou Eu?</button>
-            <button type="button">O que faço?</button>
-            <button type="button">Hobbies</button>
+            <button
+                    type="button"
+                    @click="vistaAtiva = 'quem-sou-eu'"
+                    :aria-current="vistaAtiva === 'quem-sou-eu' ? 'page' : null"
+            >
+                Quem Sou Eu?
+            </button>
+
+            <button
+                    type="button"
+                    @click="vistaAtiva = 'o-que-faco'"
+                    :aria-current="vistaAtiva === 'o-que-faco' ? 'page' : null"
+            >
+                O que faço?
+            </button>
+
+            <button
+                    type="button"
+                    @click="vistaAtiva = 'hobbies'"
+                    :aria-current="vistaAtiva === 'hobbies' ? 'page' : null"
+            >
+                Hobbies
+            </button>
         </nav>
     </header>
 
     <main>
-        <section id="quem-sou-eu">
+        <section id="quem-sou-eu" v-if="vistaAtiva === 'quem-sou-eu'">
             <h2>Quem Sou Eu?</h2>
             <p>
                 Sou Luís Pereira, estudante de Mestrado em
@@ -34,7 +56,7 @@
             </p>
         </section>
 
-        <section id="o-que-faco">
+        <section id="o-que-faco" v-if="vistaAtiva === 'o-que-faco'">
             <h2>O que faço?</h2>
             <p>
                 Nesta secção apresentarei a minha experiência,
@@ -42,7 +64,7 @@
             </p>
         </section>
 
-        <section id="hobbies">
+        <section id="hobbies" v-if="vistaAtiva === 'hobbies'">
             <h2>Hobbies</h2>
 
             <h3>Tecnologia</h3>

@@ -77,6 +77,13 @@ nav button:hover {
     background-color: rgba(0, 255, 65, 0.08);
 }
 
+nav button[aria-current="page"] {
+    color: var(--fundo);
+    background-color: var(--verde);
+    border-color: var(--verde);
+    font-weight: bold;
+}
+
 nav button:focus-visible {
     outline: 2px solid var(--verde);
     outline-offset: 3px;
