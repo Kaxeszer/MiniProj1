@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
@@ -10,8 +9,14 @@
 
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js" defer></script>
+    <script src="js/vendor/vue.global.prod.js" defer></script>
+    <script src="js/locales/pt.js" defer></script>
+    <script src="js/locales/en.js" defer></script>
+    <script src="js/data/certifications.js" defer></script>
+    <script src="js/data/experience.js" defer></script>
     <script src="js/app.js" defer></script>
+    <script src="js/matrix.js" defer></script>
+    <script src="js/progress.js" defer></script>
 </head>
 
 <body>
@@ -27,21 +32,26 @@
                 <button type="button"
                         @click="vistaAtiva = 'quem-sou-eu'"
                         :aria-current="vistaAtiva === 'quem-sou-eu' ? 'page' : null">
-                    Quem Sou Eu?
+                    {{ t("nav.about") }}
                 </button>
 
                 <button type="button"
                         @click="vistaAtiva = 'o-que-faco'"
                         :aria-current="vistaAtiva === 'o-que-faco' ? 'page' : null">
-                    O que faço?
+                    {{ t("nav.work") }}
                 </button>
 
                 <button type="button"
                         @click="vistaAtiva = 'hobbies'"
                         :aria-current="vistaAtiva === 'hobbies' ? 'page' : null">
-                    Hobbies
+                    Hobbies?
                 </button>
             </nav>
+            <button type="button" class="language-toggle"
+                    @click="idioma = idioma === 'pt' ? 'en' : 'pt'"
+                    :aria-label="idioma === 'pt' ? 'Switch to English' : 'Mudar para português'">
+                {{ idioma === 'pt' ? '🇬🇧' : '🇵🇹' }}
+            </button>
         </div>
     </header>
 
@@ -54,46 +64,33 @@
                 <div class="hero-content">
                     <p class="hero-pre">engenheiro_informático.init()</p>
 
-                    <h1>Quem sou eu?</h1>
+                    <h1>{{ t("hero.title") }}</h1>
 
-                    <p class="section-label">01 / APRESENTAÇÃO PESSOAL</p>
+                    <p class="section-label">{{ t("hero.introduction") }}</p>
 
                     <p class="intro-question">Luís Pereira</p>
 
                     <p class="hero-sub">
-                        Entusiasta de Tecnologia ·
-                        <span>Formador IT</span> ·
-                        Logística &amp; Operações
+                        {{ t("hero.tagline") }}
+                        <span>{{ t("hero.profession") }}</span> {{ t("hero.logistics") }}
                     </p>
 
                     <p class="hero-location">Viana do Castelo, Portugal</p>
 
                     <p class="hero-msc">
-                        MEIW · Mestrado em Engenharia Informática e Tecnologia Web · UTAD
+                        {{ t("hero.mastersSummary") }}
                     </p>
 
                     <p class="hero-desc">
-                        Natural de Vila Praia de Âncora, construí o meu percurso
-                        entre a logística e a tecnologia. Após mais de 10 anos de
-                        experiência em gestão de armazéns, stocks e operações,
-                        decidi investir na Engenharia Informática, uma área que
-                        sempre me motivou.
+                        {{ t("hero.biography") }}
                     </p>
 
                     <p class="hero-desc">
-                        Concluí a Licenciatura em Engenharia Informática na
-                        Universidade Aberta, incluindo uma experiência de
-                        mobilidade académica com a Universidade Estadual de
-                        Ponta Grossa, no Brasil. Atualmente frequento o Mestrado
-                        em Engenharia Informática e Tecnologia Web na UTAD e sou
-                        formador na área das tecnologias de informação.
+                        {{ t("hero.educationSummary") }}
                     </p>
 
                     <p class="hero-desc">
-                        Pretendo desenvolver uma carreira em desenvolvimento de
-                        software, engenharia web ou sistemas, combinando
-                        conhecimentos técnicos com a experiência profissional
-                        em organização, liderança e resolução de problemas.
+                        {{ t("hero.careerGoals") }}
                     </p>
 
                     <div class="hero-actions">
@@ -101,14 +98,32 @@
                            target="_blank"
                            rel="noopener noreferrer"
                            class="btn btn-ghost">
-                            LinkedIn ↗
+                            <img class="btn-icon" src="assets/svg/linkedin.svg" alt="" aria-hidden="true">
+                            LinkedIn
                         </a>
 
                         <a href="https://github.com/kaxeszer"
                            target="_blank"
                            rel="noopener noreferrer"
                            class="btn btn-ghost">
-                            GitHub ↗
+                            <img class="btn-icon" src="assets/svg/github.svg" alt="" aria-hidden="true">
+                            GitHub
+                        </a>
+
+                        <a href="https://guiadoscursos.uab.pt/cursos/licenciatura-em-engenharia-informatica/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="btn btn-ghost">
+                            <img class="btn-icon" src="assets/svg/universidade-aberta.svg" alt="" aria-hidden="true">
+                            {{ t("education.bachelorsShort") }}
+                        </a>
+
+                        <a href="https://www.utad.pt/estudar/cursos/eng-info-tec-web/"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="btn btn-ghost">
+                            <img class="btn-icon" src="assets/svg/utad.svg" alt="" aria-hidden="true">
+                            {{ t("education.mastersShort") }}
                         </a>
                     </div>
                 </div>
@@ -121,37 +136,13 @@
                 </div>
             </div>
 
-            <div class="identity-details">
-                <div class="identity-education">
-                    <a class="stat-card stat-link"
-                       href="https://guiadoscursos.uab.pt/cursos/licenciatura-em-engenharia-informatica/"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        <strong>2023–26</strong>
-                        <span>
-                            Licenciatura em Engenharia Informática · Universidade Aberta
-                        </span>
-                    </a>
-
-                    <a class="stat-card stat-link"
-                       href="https://www.utad.pt/estudar/cursos/eng-info-tec-web/"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        <strong>2026–28</strong>
-                        <span>
-                            Mestrado em Engenharia Informática e Tecnologia Web · UTAD
-                        </span>
-                    </a>
-                </div>
-            </div>
-
             <div class="content-block">
-                <p class="section-label">02 / COMPETÊNCIAS</p>
-                <h2>Competências</h2>
+                <p class="section-label">{{ t("skills.eyebrow") }}</p>
+                <h2>{{ t("skills.title") }}</h2>
 
                 <div class="skills-grid">
                     <article class="skill-card">
-                        <h3>Linguagens de Programação</h3>
+                        <h3>{{ t("skills.programmingLanguages") }}</h3>
                         <div class="tags">
                             <span>Python</span>
                             <span>Java</span>
@@ -173,28 +164,28 @@
                     </article>
 
                     <article class="skill-card">
-                        <h3>Dados e Sistemas</h3>
+                        <h3>{{ t("skills.dataSystems") }}</h3>
                         <div class="tags">
                             <span>SQL Server</span>
                             <span>MySQL</span>
                             <span>OOP</span>
-                            <span>Algoritmos</span>
-                            <span>Compiladores</span>
-                            <span>Redes</span>
-                            <span>Sistemas Operativos</span>
+                            <span>{{ t("skills.algorithms") }}</span>
+                            <span>{{ t("skills.compilers") }}</span>
+                            <span>{{ t("skills.networks") }}</span>
+                            <span>{{ t("skills.operatingSystems") }}</span>
                             <span>Power BI</span>
-                            <span>IA</span>
+                            <span>{{ t("skills.artificialIntelligence") }}</span>
                             <span>Machine Learning</span>
                             <span>Data Analysis</span>
                             <span>Excel</span>
                             <span>Jupyter Notebook</span>
-                            <span>RGPD</span>
-                            <span>Cibersegurança</span>
+                            <span>{{ t("skills.dataProtection") }}</span>
+                            <span>{{ t("skills.cybersecurity") }}</span>
                         </div>
                     </article>
 
                     <article class="skill-card">
-                        <h3>Ferramentas e Plataformas</h3>
+                        <h3>{{ t("skills.toolsPlatforms") }}</h3>
 
                         <div class="tags">
                             <span>Windows</span>
@@ -208,26 +199,26 @@
                             <span>Moodle</span>
                         </div>
 
-                        <h3 class="skill-subheading">Línguas</h3>
+                        <h3 class="skill-subheading">{{ t("skills.languages") }}</h3>
 
                         <div class="tags">
-                            <span>Português · Nativo</span>
-                            <span>Inglês · C1/B2</span>
-                            <span>Espanhol · B2</span>
+                            <span>{{ t("skills.portuguese") }}</span>
+                            <span>{{ t("skills.english") }}</span>
+                            <span>{{ t("skills.spanish") }}</span>
                         </div>
                     </article>
 
                     <article class="skill-card">
-                        <h3>Competências Transversais</h3>
+                        <h3>{{ t("skills.softSkills") }}</h3>
                         <div class="tags">
-                            <span>Resolução de Problemas</span>
-                            <span>Pensamento Analítico</span>
-                            <span>Liderança de Equipa</span>
-                            <span>Gestão de Tempo</span>
-                            <span>Aprendizagem Autónoma</span>
-                            <span>Comunicação</span>
-                            <span>Trabalho em Equipa</span>
-                            <span>Adaptabilidade</span>
+                            <span>{{ t("skills.problemSolving") }}</span>
+                            <span>{{ t("skills.analyticalThinking") }}</span>
+                            <span>{{ t("skills.teamLeadership") }}</span>
+                            <span>{{ t("skills.timeManagement") }}</span>
+                            <span>{{ t("skills.selfLearning") }}</span>
+                            <span>{{ t("skills.communication") }}</span>
+                            <span>{{ t("skills.teamwork") }}</span>
+                            <span>{{ t("skills.adaptability") }}</span>
                             <span>CCP</span>
                             <span>E-Formador</span>
                         </div>
@@ -243,96 +234,40 @@
             <div class="view-heading professional-intro">
                 <p class="hero-pre">engenheiro_informático.init()</p>
 
-                <h1>O que faço?</h1>
+                <h1>{{ t("nav.work") }}</h1>
 
-                <p class="section-label">01 / APRESENTAÇÃO PROFISSIONAL</p>
+                <p class="section-label">{{ t("professional.eyebrow") }}</p>
 
                 <div class="professional-copy">
                     <p>
-                        Sou um profissional de 40 anos em transição para o setor
-                        das Tecnologias de Informação. Tenho mais de 10 anos de
-                        experiência em logística, gestão de armazéns, stocks e
-                        operações, áreas onde desenvolvi competências de
-                        organização, liderança e resolução de problemas.
+                        {{ t("professional.intro1") }}
                     </p>
 
                     <p>
-                        Concluí a Licenciatura em Engenharia Informática na
-                        Universidade Aberta e frequento atualmente o Mestrado
-                        em Engenharia Informática e Tecnologia Web na UTAD.
-                        Há cerca de dois meses iniciei também a minha atividade
-                        como formador IT.
+                        {{ t("professional.intro2") }}
                     </p>
 
                     <p>
-                        O meu objetivo é aliar a experiência profissional aos
-                        conhecimentos técnicos e à aprendizagem contínua,
-                        construindo um percurso na área das tecnologias.
+                        {{ t("professional.intro3") }}
                     </p>
                 </div>
             </div>
 
             <div class="content-block" id="experiencia">
-                <p class="section-label">02 / EXPERIÊNCIA</p>
-                <h2>Experiência Profissional</h2>
+                <p class="section-label">{{ t("experience.eyebrow") }}</p>
+                <h2>{{ t("experience.title") }}</h2>
 
                 <div class="timeline">
-                    <article class="timeline-item">
+                    <article class="timeline-item"
+                             v-for="emprego in experiencia"
+                             :key="emprego.id">
                         <div class="timeline-dot"></div>
-
                         <div class="timeline-content">
-                            <p class="timeline-date">Set 2026 — Presente</p>
-                            <h3>Formador IT</h3>
-
-                            <p class="timeline-org">
-                                Instituto do Emprego e Formação Profissional, I.P. (IEFP)
-                            </p>
-
+                            <p class="timeline-date">{{ t(emprego.dates) }}</p>
+                            <h3>{{ t(emprego.title) }}</h3>
+                            <p class="timeline-org">{{ emprego.organization }}</p>
                             <ul class="timeline-points">
-                                <li>Planear e preparar sessões de formação na área das Tecnologias de Informação</li>
-                                <li>Desenvolver materiais pedagógicos, apresentações e exercícios práticos de apoio à aprendizagem</li>
-                                <li>Ministrar sessões de formação, acompanhando os formandos e esclarecendo dúvidas</li>
-                                <li>Elaborar e aplicar instrumentos de avaliação, analisar resultados e fornecer feedback aos formandos</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="timeline-item">
-                        <div class="timeline-dot"></div>
-
-                        <div class="timeline-content">
-                            <p class="timeline-date">Mai 2022 — Out 2026</p>
-                            <h3>Responsável de Armazém</h3>
-
-                            <p class="timeline-org">
-                                Groupe GM Península Ibérica, S.A. — Viana do Castelo
-                            </p>
-
-                            <ul class="timeline-points">
-                                <li>Gerir operações de armazém: receção, conferência e armazenamento</li>
-                                <li>Preparar e coordenar expedições para entrega pontual</li>
-                                <li>Monitorizar níveis de stock e realizar controlo de inventário</li>
-                                <li>Assegurar a organização do armazém e o cumprimento das normas de segurança</li>
-                            </ul>
-                        </div>
-                    </article>
-
-                    <article class="timeline-item">
-                        <div class="timeline-dot"></div>
-
-                        <div class="timeline-content">
-                            <p class="timeline-date">Jan 2018 — Mar 2022</p>
-                            <h3>Responsável de Armazém</h3>
-
-                            <p class="timeline-org">
-                                J.O.M. Lda. — Viana do Castelo
-                            </p>
-
-                            <ul class="timeline-points">
-                                <li>Gerir operações de armazém e supervisionar a equipa de entregas</li>
-                                <li>Garantir o cumprimento dos prazos de entrega e a precisão nas expedições</li>
-                                <li>Supervisionar o controlo de stock e manter a documentação atualizada</li>
-                                <li>Implementar normas de organização e segurança no armazém</li>
+                                <li v-for="tarefa in emprego.tasks" :key="tarefa">{{ t(tarefa) }}</li>
                             </ul>
                         </div>
                     </article>
@@ -340,8 +275,8 @@
             </div>
 
             <div class="content-block" id="formacao">
-                <p class="section-label">03 / FORMAÇÃO</p>
-                <h2>Formação Académica</h2>
+                <p class="section-label">{{ t("education.eyebrow") }}</p>
+                <h2>{{ t("education.title") }}</h2>
 
                 <div class="edu-steps"
                      role="group"
@@ -354,7 +289,7 @@
                             @click="formacaoAtiva = 0">
                         <span class="edu-step-dot">1</span>
                         <span class="edu-step-lbl">
-                            12.º Ano<br>Qualidade Alimentar
+                            {{ t("education.secondaryShort") }}<br>{{ t("education.foodQuality") }}
                         </span>
                     </button>
 
@@ -365,7 +300,7 @@
                             @click="formacaoAtiva = 1">
                         <span class="edu-step-dot">2</span>
                         <span class="edu-step-lbl">
-                            CET<br>Qualidade Alimentar
+                            {{ t("education.cetShort") }}<br>{{ t("education.foodQuality") }}
                         </span>
                     </button>
 
@@ -376,7 +311,7 @@
                             @click="formacaoAtiva = 2">
                         <span class="edu-step-dot">3</span>
                         <span class="edu-step-lbl">
-                            Licenciatura<br>Eng. Informática
+                            {{ t("education.bachelorsShort") }}<br>{{ t("education.computerEngineeringShort") }}
                         </span>
                     </button>
 
@@ -387,7 +322,7 @@
                             @click="formacaoAtiva = 3">
                         <span class="edu-step-dot">4</span>
                         <span class="edu-step-lbl">
-                            Mestrado MEIW<br>UTAD · 2026
+                            {{ t("education.mastersProgramShort") }}<br>UTAD · 2026
                         </span>
                     </button>
                 </div>
@@ -398,25 +333,25 @@
 
                     <article class="edu-card">
                         <span class="edu-badge b-gray">
-                            1 · 12.º Ano · Nível 4 QEQ · 2012 a 2014
+                            {{ t("education.secondaryBadge") }}
                         </span>
 
                         <h3 class="edu-deg">
-                            12.º Ano — Técnico de Controlo de Qualidade Alimentar
+                            {{ t("education.secondaryDegree") }}
                         </h3>
 
                         <p class="edu-sch">
                             Escola Secundária de Monserrate — Viana do Castelo
                         </p>
 
-                        <p class="edu-per">Nível 4 QEQ</p>
-                        <p class="edu-note">Controlo de Qualidade Alimentar</p>
+                        <p class="edu-per">{{ t("education.level4") }}</p>
+                        <p class="edu-note">{{ t("education.secondaryNote") }}</p>
 
                         <a class="edu-link-hint"
                            href="assets/certificados/Certificado_12ano_QA.pdf"
                            target="_blank"
                            rel="noopener noreferrer">
-                            Ver certificado ↗
+                            {{ t("common.viewCertificate") }}
                         </a>
                     </article>
                 </div>
@@ -427,23 +362,23 @@
 
                     <article class="edu-card">
                         <span class="edu-badge b-gray">
-                            2 · CET · Nível 5 QEQ · 2014 a 2015
+                            {{ t("education.cetBadge") }}
                         </span>
 
-                        <h3 class="edu-deg">CET — Qualidade Alimentar</h3>
+                        <h3 class="edu-deg">{{ t("education.cetDegree") }}</h3>
 
                         <p class="edu-sch">
                             IPVC–ESTG — Viana do Castelo
                         </p>
 
-                        <p class="edu-per">Nível 5 QEQ</p>
-                        <p class="edu-note">Qualidade Alimentar</p>
+                        <p class="edu-per">{{ t("education.level5") }}</p>
+                        <p class="edu-note">{{ t("education.foodQuality") }}</p>
 
                         <a class="edu-link-hint"
                            href="assets/certificados/Certificado_CET_QA.pdf"
                            target="_blank"
                            rel="noopener noreferrer">
-                            Ver certificado ↗
+                            {{ t("common.viewCertificate") }}
                         </a>
                     </article>
                 </div>
@@ -455,28 +390,28 @@
                     <div class="edu-grid">
                         <article class="edu-card active-card">
                             <span class="edu-badge b-degree">
-                                3 · Licenciatura · Nível 6 QEQ · 2023 a 2026
+                                {{ t("education.bachelorsBadge") }}
                             </span>
 
                             <h3 class="edu-deg">
-                                Licenciatura em Engenharia Informática
+                                {{ t("education.bachelorsDegree") }}
                             </h3>
 
                             <p class="edu-sch">
                                 Universidade Aberta — Lisboa
                             </p>
 
-                            <p class="edu-per">Nível 6 QEQ</p>
+                            <p class="edu-per">{{ t("education.level6") }}</p>
 
                             <p class="edu-note">
-                                Programação · Compiladores · Algoritmos · Bases de Dados
+                                {{ t("education.bachelorsSubjects") }}
                             </p>
 
                             <a class="edu-link-hint"
                                href="assets/certificados/Certificado_Licenciatura_Engenharia_Informatica.pdf"
                                target="_blank"
                                rel="noopener noreferrer">
-                                Ver certificado ↗
+                                {{ t("common.viewCertificate") }}
                             </a>
                         </article>
 
@@ -484,25 +419,24 @@
                             <span class="edu-badge b-gray">MOVI 2025</span>
 
                             <h3 class="edu-deg">
-                                Mobilidade Virtual Estudantil
+                                {{ t("education.mobilityTitle") }}
                             </h3>
 
                             <p class="edu-sch">
-                                UEPG — Ponta Grossa, Brasil
+                                {{ t("education.mobilityInstitution") }}
                             </p>
 
-                            <p class="edu-per">Nov 2024 — Ago 2025</p>
+                            <p class="edu-per">{{ t("education.mobilityDates") }}</p>
 
                             <p class="edu-note">
-                                Programa de mobilidade internacional UAb
-                                integrado na licenciatura
+                                {{ t("education.mobilityDescription") }}
                             </p>
 
                             <a class="edu-link-hint"
                                href="assets/certificados/Certidao_MOVI_UEPG.pdf"
                                target="_blank"
                                rel="noopener noreferrer">
-                                Ver certidão ↗
+                                {{ t("common.viewStatement") }}
                             </a>
                         </article>
                     </div>
@@ -514,208 +448,39 @@
 
                     <article class="edu-card next-card">
                         <span class="edu-badge b-green">
-                            4 · Mestrado · Nível 7 QEQ · 2026 a 2028
+                            {{ t("education.mastersBadge") }}
                         </span>
 
                         <h3 class="edu-deg">
-                            Mestrado MEIW — Engenharia Informática e Tecnologia Web
+                            {{ t("education.mastersDegree") }}
                         </h3>
 
                         <p class="edu-sch">UTAD — Vila Real</p>
-                        <p class="edu-per">Início em 2026</p>
+                        <p class="edu-per">{{ t("education.mastersStart") }}</p>
 
                         <a class="edu-link-hint"
                            href="https://www.utad.pt/estudar/cursos/eng-info-tec-web/"
                            target="_blank"
                            rel="noopener noreferrer">
-                            Ver página do mestrado ↗
+                            {{ t("common.viewMasters") }}
                         </a>
                     </article>
                 </div>
             </div>
 
             <div class="content-block" id="formacoes-complementares">
-                <p class="section-label">04 / FORMAÇÕES COMPLEMENTARES</p>
-                <h2>Cursos e Certificações</h2>
+                <p class="section-label">{{ t("complementary.eyebrow") }}</p>
+                <h2>{{ t("complementary.title") }}</h2>
 
                 <div class="complementary-grid">
-                    <article class="complementary-course">
+                    <article class="complementary-course"
+                             v-for="curso in certificacoes"
+                             :key="curso.id">
                         <span class="course-dot" aria-hidden="true"></span>
                         <div class="complementary-info">
-                            <h3>E-Formador com Novas Tecnologias e Metodologias Ativas</h3>
-                            <p>Jun 2026 · ENA</p>
-                            <a href="assets/certificados/Certificado_EFormador_ENA.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Certificado de Competências Pedagógicas (CCP)</h3>
-                            <p>Jun 2026 · IEFP</p>
-                            <a href="assets/certificados/Certificado_CCP_IEFP.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Curso de IA e Aprendizagem — Compreender, Usar e Avaliar</h3>
-                            <p>Jun 2026 · Universidade Aberta</p>
-                            <a href="assets/certificados/Certificado_IA_Aprendizagem.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>IBM Data Analyst — Professional Certificate</h3>
-                            <p>Out 2025 · IBM / Coursera · 11 cursos</p>
-                            <a href="assets/certificados/Certificado_IBM_Data_Analyst.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Power BI Data Visualization</h3>
-                            <p>Nov 2024 · CESAE Digital</p>
-                            <a href="assets/certificados/Certificado_Power_BI.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Fundamentos de Cibersegurança</h3>
-                            <p>Jul 2024 · Universidade Aberta</p>
-                            <a href="assets/certificados/Certificado_Ciberseguranca.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Programação Web de Servidor</h3>
-                            <p>Mai 2024 · CESAE Digital</p>
-                            <a href="assets/certificados/Certificado_Programacao_Web_Servidor.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Machine Learning — Abordagem Prática</h3>
-                            <p>Fev 2024 · Ordem dos Engenheiros</p>
-                            <a href="assets/certificados/Certificado_Machine_Learning.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Programação e Robótica no Ensino</h3>
-                            <p>Nov 2024 · UAb e NAU FCT</p>
-                            <a href="assets/certificados/Certificado_Programacao_Robotica.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Literacia Digital</h3>
-                            <p>Abr 2024 · EdKid</p>
-                            <a href="assets/certificados/Certificado_Literacia_Digital.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>RGPD para Cidadãos Atentos</h3>
-                            <p>Mai 2024 · NAU FCT</p>
-                            <a href="assets/certificados/Certificado_RGPD.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Marketing Digital</h3>
-                            <p>Mar 2024 · JADRC</p>
-                            <a href="assets/certificados/Certificado_Marketing_Digital.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Técnico Apoio Informático — Mesas Eleitorais</h3>
-                            <p>Mai 2024 · IEFP</p>
-                            <a href="assets/certificados/Certificado_Apoio_Informatico_Eleitorais.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Cidadão Ciberseguro</h3>
-                            <p>Mai 2024 · NAU FCT</p>
-                            <a href="assets/certificados/Certificado_Cidadao_Ciberseguro.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Cidadão Ciberinformado</h3>
-                            <p>Mai 2024 · NAU FCT</p>
-                            <a href="assets/certificados/Certificado_Cidadao_Ciberinformado.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Primeiros Socorros</h3>
-                            <p>Jan 2024 · Cruz Vermelha</p>
-                            <a href="assets/certificados/Certificado_Primeiros_Socorros.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Operador de Empilhadores</h3>
-                            <p>Jun 2023 · Linde</p>
-                            <a href="assets/certificados/Certificado_Empilhadores_Linde.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Agentes Eleitorais — Membros de Mesa</h3>
-                            <p>Dez 2023 · NAU FCT</p>
-                            <a href="assets/certificados/Certificado_Agentes_Eleitorais.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Membros de Mesa — Cadernos Eleitorais Desmaterializados</h3>
-                            <p>Abr 2024 · NAU FCT</p>
-                            <a href="assets/certificados/Certificado_Membros_Mesa_CED.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
-                        </div>
-                    </article>
-
-                    <article class="complementary-course">
-                        <span class="course-dot" aria-hidden="true"></span>
-                        <div class="complementary-info">
-                            <h3>Membros de Mesa — Voto Antecipado em Mobilidade</h3>
-                            <p>Mar 2024 · NAU FCT</p>
-                            <a href="assets/certificados/Certificado_Voto_Antecipado.pdf" target="_blank" rel="noopener noreferrer">Ver certificado ↗</a>
+                            <h3>{{ textoCurso(curso.title) }}</h3>
+                            <p>{{ textoCurso(curso.date) }}</p>
+                            <a :href="curso.certificate" target="_blank" rel="noopener noreferrer">{{ t("common.viewCertificate") }}</a>
                         </div>
                     </article>
                 </div>
@@ -726,23 +491,26 @@
                  class="view"
                  v-if="vistaAtiva === 'hobbies'">
 
-            <div class="view-heading">
-                <p class="section-label">03 / INTERESSES</p>
-                <h1>Hobbies</h1>
-                <p>
-                    Interesses pessoais que complementam
-                    o meu percurso profissional e académico.
-                </p>
+            <div class="view-heading professional-intro">
+                <p class="hero-pre">engenheiro_informático.init()</p>
+
+                <h1>Hobbies?</h1>
+
+                <p class="section-label">{{ t("hobbies.eyebrow") }}</p>
+
+                <div class="professional-copy">
+                    <p>
+                        {{ t("hobbies.introduction") }}
+                    </p>
+                </div>
             </div>
 
             <div class="hobbies-grid">
                 <article class="hobby-card">
                     <span class="hobby-number">01</span>
-                    <h2>Tecnologia</h2>
+                    <h2>{{ t("hobbies.technologyTitle") }}</h2>
                     <p>
-                        Explorar novas ferramentas, linguagens de programação
-                        e tendências tecnológicas, desenvolvendo continuamente
-                        os meus conhecimentos.
+                        {{ t("hobbies.technologyDescription") }}
                     </p>
                 </article>
 
@@ -750,19 +518,15 @@
                     <span class="hobby-number">02</span>
                     <h2>Gaming</h2>
                     <p>
-                        Os videojogos são uma forma de entretenimento
-                        e um interesse ligado à evolução da tecnologia,
-                        à criatividade e à estratégia.
+                        {{ t("hobbies.gamingDescription") }}
                     </p>
                 </article>
 
                 <article class="hobby-card">
                     <span class="hobby-number">03</span>
-                    <h2>Motociclismo</h2>
+                    <h2>{{ t("hobbies.motorcyclingTitle") }}</h2>
                     <p>
-                        O motociclismo é um dos meus interesses pessoais,
-                        associado à liberdade, à descoberta de novos
-                        lugares e ao gosto pelas motas.
+                        {{ t("hobbies.motorcyclingDescription") }}
                     </p>
                 </article>
             </div>
