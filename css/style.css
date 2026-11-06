@@ -927,21 +927,37 @@ footer {
     color: var(--verde);
 }
 
+
 .footer-links {
     display: flex;
+    align-items: center;
     gap: 1.25rem;
 }
 
 .footer-links a {
-    color: var(--texto-discreto);
-    font-family: var(--mono), monospace;
-    font-size: 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid transparent;
+    border-radius: 5px;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
 }
 
-.footer-links a:hover {
-    color: var(--verde);
+.footer-links a img {
+    display: block;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+    border-color: var(--linha-destaque);
+    background: var(--verde-transparente);
+    transform: translateY(-2px);
 }
 
 @media (max-width: 900px) {
